@@ -1,4 +1,7 @@
-require File.join(__dir__, 'currency.rb')
+Dir[File.join(__dir__, '..', 'rules', '*.rb')].each { |file| require file }
+
+require File.join(__dir__, 'currency')
+require File.join(__dir__, 'product_list')
 
 class Checkout
   attr_reader :rules, :product_codes
