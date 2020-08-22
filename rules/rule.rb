@@ -6,4 +6,5 @@ class Rule
   def initialize(product_list)
     @product_list = product_list
   end
+  private_class_method :new
 end

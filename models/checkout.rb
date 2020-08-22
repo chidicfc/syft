@@ -4,8 +4,7 @@ require File.join(__dir__, 'currency')
 require File.join(__dir__, 'product_list')
 
 class Checkout
-  attr_reader :rules, :product_codes
-
+  
   def initialize(rules = [])
     @rules = rules
     @product_codes = []
@@ -20,6 +19,8 @@ class Checkout
   end
 
   private
+
+  attr_reader :rules, :product_codes
 
   def product_list
     ProductList.new(product_codes)
