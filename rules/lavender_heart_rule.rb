@@ -1,15 +1,9 @@
-class LavenderHeartRule
+require File.join(__dir__, 'rule')
+
+class LavenderHeartRule < Rule
   PRODUCT_CODE = '001'
   PRICE = 8.5
   NUMBER = 2
-
-  def self.apply(product_list)
-    new(product_list).apply
-  end
-
-  def initialize(product_list)
-    @product_list = product_list
-  end
 
   def apply
     if condition

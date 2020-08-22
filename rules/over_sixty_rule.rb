@@ -1,14 +1,8 @@
-class OverSixtyRule
+require File.join(__dir__, 'rule')
+
+class OverSixtyRule < Rule
   DISCOUNT = 0.1
   AMOUNT = 60
-
-  def self.apply(product_list)
-    new(product_list).apply
-  end
-
-  def initialize(product_list)
-    @product_list = product_list
-  end
 
   def apply
     if condition
