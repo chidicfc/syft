@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductList
   attr_reader :scanned_products
   attr_accessor :total

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 RSpec.describe Checkout do
   subject(:checkout) { described_class.new(promotional_rules) }
 
-  let(:promotional_rules) { [ LavenderHeartRule, OverSixtyRule ] }
+  let(:promotional_rules) { [LavenderHeartRule, OverSixtyRule] }
 
   context 'when the basket contains products: 001, 002, 003' do
     it 'calculates the total' do
@@ -33,7 +35,6 @@ RSpec.describe Checkout do
       expect(checkout.total).to eq('£73.76')
     end
   end
-
 
   context 'when the total is checked twice' do
     it 'calculates the total' do

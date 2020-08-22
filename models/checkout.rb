@@ -1,10 +1,11 @@
-Dir[File.join(__dir__, '..', 'rules', '*.rb')].each { |file| require file }
+# frozen_string_literal: true
+
+Dir[File.join(__dir__, '..', 'rules', '*.rb')].sort.each { |file| require file }
 
 require File.join(__dir__, 'currency')
 require File.join(__dir__, 'product_list')
 
 class Checkout
-  
   def initialize(rules = [])
     @rules = rules
     @product_codes = []

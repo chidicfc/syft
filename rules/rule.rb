@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rule
   def self.apply(product_list)
     new(product_list).apply

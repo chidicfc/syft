@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.join(__dir__, 'rule')
 
 class LavenderHeartRule < Rule
@@ -6,9 +8,7 @@ class LavenderHeartRule < Rule
   NUMBER = 2
 
   def apply
-    if condition
-      @product_list.total -= discount
-    end
+    @product_list.total -= discount if condition
     @product_list
   end
 

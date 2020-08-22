@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe LavenderHeartRule do
   subject { described_class.apply(product_list) }
 
