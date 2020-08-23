@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-class ProductList
-  DATA_FILE = 'data.csv'
+require File.join(__dir__, '..', 'services', 'products_file_service')
 
+class ProductList
   attr_reader :scanned_products
   attr_accessor :total
 
-  def initialize(product_codes = [])
+  def initialize(product_codes = [], file_service: ProductsFileService)
     @product_codes = product_codes
+    @file_service = file_service
     @scanned_products ||= selected_products
     @total = @scanned_products.sum(&:price)
   end
@@ -15,20 +16,7 @@ class ProductList
   private
 
   def raw_data
-    data = []
-    file = File.join(__dir__, '..', DATA_FILE)
-
-    IO.foreach(file).with_index do |line, index|
-      next if index.zero?
-      product_details = line.chomp.split(',')
-      data << {
-        product_code: product_details[0],
-        name: product_details[1],
-        price: product_details[2].to_f
-      }
-    end
-
-    data
+    @file_service.raw_data
   end
 
   def product
