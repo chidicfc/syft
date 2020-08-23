@@ -12,11 +12,14 @@ class Checkout
   end
 
   def scan(product_code)
+    @has_new_item = true
     product_codes.push(product_code)
   end
 
   def total
-    print_total
+    total = total_price
+    @has_new_item = false
+    print_total(total)
   end
 
   private
@@ -24,14 +27,22 @@ class Checkout
   attr_reader :rules, :product_codes
 
   def product_list
-    ProductList.new(product_codes)
+    @product_list = ProductList.new(product_codes)
   end
 
-  def amount
+  def apply_rules
     rules.inject(product_list) { |list, rule| rule.apply(list) }.total
   end
 
-  def print_total
-    Money.from_amount(amount, 'GBP').format
+  def total_price
+    if defined?(@product_list) && !@has_new_item
+      @product_list.total
+    else
+      apply_rules
+    end
+  end
+
+  def print_total(total)
+    Money.from_amount(total, 'GBP').format
   end
 end

@@ -36,8 +36,8 @@ RSpec.describe Checkout do
     end
   end
 
-  context 'when the total is checked twice' do
-    it 'calculates the total' do
+  context 'when the total is called twice between scans' do
+    it 'applies the rules and returns the total' do
       checkout.scan('001')
       checkout.scan('001')
       checkout.scan('003')
@@ -48,6 +48,23 @@ RSpec.describe Checkout do
       checkout.scan('002')
 
       expect(checkout.total).to eq('£81.41')
+    end
+  end
+
+  context 'when the total is called twice' do
+    it 'returns the same total twice' do
+      checkout.scan('001')
+      checkout.scan('001')
+      checkout.scan('003')
+
+      expect(checkout.total).to eq('£36.95')
+      expect(checkout.total).to eq('£36.95')
+    end
+  end
+
+  context 'when the total is called immediately after initialisation' do
+    it 'returns 0' do
+      expect(checkout.total).to eq('£0.00')
     end
   end
 end
