@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProductList
+  DATA_FILE = 'data.csv'
+
   attr_reader :scanned_products
   attr_accessor :total
 
@@ -13,11 +15,20 @@ class ProductList
   private
 
   def raw_data
-    [
-      { product_code: '001', name: 'Lavender heart', price: 9.25 },
-      { product_code: '002', name: 'Personalised cufflinks', price: 45.00 },
-      { product_code: '003', name: 'Kids T-shirt', price: 19.95 }
-    ]
+    data = []
+    file = File.join(__dir__, '..', DATA_FILE)
+
+    IO.foreach(file).with_index do |line, index|
+      next if index.zero?
+      product_details = line.chomp.split(',')
+      data << {
+        product_code: product_details[0],
+        name: product_details[1],
+        price: product_details[2].to_f
+      }
+    end
+
+    data
   end
 
   def product
